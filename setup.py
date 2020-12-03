@@ -1,14 +1,25 @@
 from setuptools import setup
 
 setup(name='dataanalyser',
-	version='0.0.1',
+	version='0.1.1',
 	description='Automates Exploratory Data Analysis',
-	author = 'Mohamed Anas',
-	author_email='anasmd890@gmail.com',
+	author = 'shalu Tyagi',
+	author_email='shalu.tyagi03@gmail.com',
 	packages=['dataanalyser'],
-	install_requires=['pandas>=1.0.3',
-					'seaborn>=0.10.0',
-					'numpy>=1.18.3',
-					'scipy>=1.4.1',
-					'matplotlib>=3.2.1',
-					'python-dateutil','setuptools'])
+    license="MIT",
+    classifiers=[
+            "License :: OSI Approved :: MIT License",
+            "Programming Language :: Python :: 3",
+            "Programming Language :: Python :: 3.7",
+    ],
+	install_requires=['pandas',
+					'seaborn',
+					'numpy',
+					'scipy',
+					'matplotlib',
+					'python-dateutil','setuptools'],
+    entry_points="""
+        [console_scripts]
+        contacts=app:cli
+        """,
+        )

@@ -1,7 +1,7 @@
 To install the package 'dataanalyser'
 1. Enter this folder through terminal
 2. pip install -r requirements.txt
-3. pip install .
+3. pip install .--user
 
 To use the package 'dataanalyser'
 	from dataanalyser.eda import Preprocessing,Visual,Outlier,Imputation,Testing
