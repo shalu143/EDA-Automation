@@ -36,28 +36,31 @@ class Imputer(object):
         print('Other options: bfill,ffill')
         
         #user input
-        opt = input('Impute(y or n c to change method: )')
-        if opt=='n':
+        opt = input('Please type yes or no for imputation, and change for changing the imputation method')
+        if opt=='no':
             return
-        if opt == 'c':
+        elif opt == 'change':
             self.num_method = input('Method for imputing numerical values: ')
             self.cat_method = input('Method for imputing categoric values: ')
-            
+        elif opt=="yes":
         #imputing
-        columns_imputed=[]
-        
-        for column in self.columns:
-            try:
-                if is_numeric_dtype(df[column]):
-                    self.impute_num(df,column)
-                elif is_object_dtype(df[column]):
-                    self.impute_cat(df,column)
-                columns_imputed.append(column)
-            except:
-                print('Problem in processing ',column)
-                continue
-        print('Imputed Columns: ',columns_imputed)
-                
+                columns_imputed=[]
+
+                for column in self.columns:
+                    try:
+                        if is_numeric_dtype(df[column]):
+                            self.impute_num(df,column)
+                        elif is_object_dtype(df[column]):
+                            self.impute_cat(df,column)
+                        columns_imputed.append(column)
+                    except:
+                        print('Problem in processing ',column)
+                        continue
+                print('Imputed Columns: ',columns_imputed)
+        else:
+            print("Please enter valid input")
+            self.impute(df)
+
     def impute_num(self,df,column):
         """Imputes Numeric Variables."""
         

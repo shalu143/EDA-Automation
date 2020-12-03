@@ -19,21 +19,27 @@ class HandleNull(object):
             return
         
         #Interacting with user
-        drop = 'c'
+        drop = 'change'
         from math import ceil
         drop_percent = self.drop_percent_row
-        while drop=='c':
+        while drop=='change':
             print('Rows having more than ',drop_percent*100,'%',' null values are dropped')
             num_rows_dropped = df.shape[0]-df.dropna(axis=0,how='any',thresh=df.shape[1]-ceil(drop_percent*df.shape[1])).shape[0]
             print('Number of rows to be dropped: ',num_rows_dropped)
-            drop = input('Drop rows(y or n) c to change percentage: ')
-            if drop == 'c':
+            drop = input('Please type yes or no to drop rows, To change the percentage please type "change": ')
+            if drop == 'change':
                 drop_percent = float(input('Enter percentage(0-1): '))
-            if drop=='n':
+            elif drop=='no':
                 return
+            elif drop=="yes":
+                df.dropna(axis=0,how='any',thresh=df.shape[1]-ceil(drop_percent*df.shape[1]),inplace=True) 
+            else:
+                print("please Enter yes, no or change only")
+                self.drop_rows(df)
+                
+         
             
         #Dropping the rows   
-        df.dropna(axis=0,how='any',thresh=df.shape[1]-ceil(drop_percent*df.shape[1]),inplace=True)
         
 
     def drop_cols(self,df,**kwargs):
@@ -44,24 +50,29 @@ class HandleNull(object):
         drop_percent = self.drop_percent_col
         
         #handling user input
-        drop = 'c'
+        drop = 'change'
         columns_dropped = []
-        while drop=='c':
+        while drop=='change':
             print('Columns having more than ',drop_percent*100,'%',' null values are dropped')
             for column in df.columns.values:
                 fraction = df[column].isna().sum()/df.shape[0]
                 if fraction > drop_percent:
                     columns_dropped.append(column)
             print(columns_dropped)
-            drop = input('Drop columns(y or n) c to change percentage: ')
-            if drop == 'c':
+            drop = input('Please type yes or no to drop columns, To change the percentage please type "change": ')
+            if drop == 'change':
                 drop_percent = float(input('Enter percentage(0-1): '))
                 columns_dropped = []
-            if drop=='n':
+            elif drop=='no':
                 return
+            elif drop=="yes":
+                df.drop(columns_dropped,axis=1,inplace=True)
+                print('The Dropped Columns are ',columns_dropped)
+                return columns_dropped
+            else:
+                print("please Enter yes, no or change only")
+                self.drop_cols(df)
+                
         
         #Dropping columns
-        df.drop(columns_dropped,axis=1,inplace=True)
-        print('The Dropped Columns are ',columns_dropped)
-
-        return columns_dropped
+        

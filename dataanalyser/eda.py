@@ -32,14 +32,14 @@ class Preprocessing(object):
 		"""Sets the target variable."""
 		global target
 		print('\t\t**Target Information**\n')
-		type_of_analysis = input("Supervised or Unsupervised Analysis:(s for supervised,u for unsupervised: ")
+		type_of_analysis = input("Supervised or Unsupervised Analysis:(s for supervised,u for unsupervised): ")
 		while type_of_analysis == 's':
 			column = input('Enter Target Variable: ')
 			if column in self.df.columns.values:
 				target = column
 				break
 			else:
-				print('Target varible not found in list of columns')
+				print('Target variable not found in list of columns')
 
 	def columns_info(self):
 		"""Gives data types of the columns."""
@@ -69,9 +69,17 @@ class Preprocessing(object):
 		print('\t\t**Dataset**')
 		display(self.df.head())
 		print('\t\t**Description of Numeric Variables**')
-		display(self.df.describe())
+		try:
+			display(self.df.describe())
+			pass
+		except:
+			print("No Numerical columns found")
 		print('\t\t**Description of Categoric Variables**')
-		display(self.df.describe(include=['object','datetime']))
+		try:
+			display(self.df.describe(include=['object','datetime']))
+			pass
+		except:
+			print("No Categorical Variables found")
 
 class Visual(object):
 	"""Class for Visual Analysis"""
