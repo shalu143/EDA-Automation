@@ -1,4 +1,4 @@
-# Datacleaner
+# DataAnalyser
 ## For installing follow instructions from README.txt
 ### Steps to Use
 To install the package 'dataanalyser'
